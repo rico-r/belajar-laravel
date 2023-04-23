@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("/posts", PostController::class);
-Route::view("/", "home");
+Route::view("/post/spa", "post.spa")->name('post.spa');
+Route::resource("/post", PostController::class);
+Route::redirect('/', route('post.index'));

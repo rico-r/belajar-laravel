@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('post.layout')
 @section('tittle', 'Edit post')
 @section('content')
 <h1 class="text-center">Edit post</h1>
@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<form action="{{ route('posts.update', ['post' => $post->id]) }}" method="post">
+<form action="{{ route('post.update', ['post' => $post->id]) }}" method="post">
     @csrf
     @method('PUT')
     <input type="text" name="tittle" class="form-control" maxlength="150" value="{{ old('tittle', $post->tittle) }}" placeholder="Tittle">

@@ -66,6 +66,9 @@
             </thead>
             <tbody></tbody>
         </table>
+        <div class="text-end link-secondary mt-3">
+            <a href="{{ route('post.index') }}">Back</a>
+        </div>
     </div>
 
     <div id="editDialog" class="modal text-dark" role="dialog" data-bs-backdrop="static">
@@ -111,16 +114,13 @@
     <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('js/vendor/csicons.min.js') }}"></script>
-    <script>var controller="{{ route('posts.index') }}/";</script>
-    @verbatim
+    <script>var controller="{{ route('post-api.index') }}/";</script>
     <script>
         var currentTarget;
         var postData;
-        cookieStore.get('XSRF-TOKEN').then((result)=>{
-            $.ajaxSettings['headers']={'X-XSRF-TOKEN': decodeURIComponent(result.value)};
-        }, ()=>{
-            // failed to get cookie, cookie is probably disabled
-        })
+        $.ajaxSettings['headers'] = {
+            'X-XSRF-TOKEN': decodeURIComponent(document.cookie.split('=')[1])
+        };
 
         function reloadData(){
             var table=$("table > tbody > *").remove();
@@ -304,6 +304,5 @@
             reloadData();
         })();
     </script>
-    @endverbatim
 </body>
 </html>

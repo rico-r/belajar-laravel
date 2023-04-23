@@ -6,7 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class PostController extends Controller
+class PostApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view("post.index")->with("posts", Post::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view("post.create");
+        return Post::all(["id", "tittle", "body"]);
     }
 
     /**
@@ -42,7 +32,7 @@ class PostController extends Controller
         ]);
 
         $post=Post::create($request->all());
-        return redirect()->route("post.index")->with("message", "Post berhasil dibuat");
+        return ["status" => "success", "id" => $post->id];
     }
 
     /**
@@ -54,19 +44,6 @@ class PostController extends Controller
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return view("post.edit", [
-            "post" => Post::findOrfail($id)
-        ]);
     }
 
     /**
@@ -89,7 +66,7 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
-        return redirect()->route("post.index")->with("message", "Data berhasil diperbaharui");
+        return ["status" => "success"];
     }
 
     /**
@@ -98,10 +75,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         Post::destroy($id);
-        return back()->with("message", "post berhasil dihapus");
+        return ["status" => "success"];
     }
-
 }

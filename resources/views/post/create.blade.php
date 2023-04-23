@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('post.layout')
 @section('tittle', 'Buat post baru')
 @section('content')
 <h1 class="text-center">Buat post baru</h1>
@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<form action="{{ url('posts') }}" method="post">
+<form action="{{ route('post.store') }}" method="post">
     @csrf
     <input type="text" name="tittle" class="form-control" placeholder="Tittle" value="{{ old('tittle') }}">
     <textarea name="body" rows="10" class="form-control w-100" placeholder="Body">{{ old('body') }}</textarea>
